@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h2><a class="button fancy-button" href="{% url 'lista_siembras' %}">Volver</a></h2>
+<br></br>
+<h1>Siembra id: {{ siembra.pk }}</h1>
+<ul>
+	<!-- <li> Material: {% for material in actividad.material.all %}{{ material }}{% endfor %}</li> -->
+	<li> Fecha: {{ siembra.fecha_actividad}}</li>
+	<li> Operario(s):
+		<ul>  
+			{% for operario in siembra.operario.all %}
+			<li> {{ operario }}</li>
+			{% endfor %}
+		</ul>
+	</li>
+	<li> {{ siembra.cama_actividad }}</li>
+	<li> Material: {{ siembra.material }}</li>
+	<li> Cantidad: {{ siembra.cantidad }}</li>
+	<li> Unidad: {{ siembra.unidad }}</li>
+	<li> Observaciones: {{ siembra.observaciones }}</li>
+</ul>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h3>Lotes</h3>
+<table>
+    <tr>
+      <th>Id</th>
+      <th>Cama</th>
+      <th>Fecha Siembra</th> 
+      <th>Fecha Cosecha</th> 
+      <th>Material</th>
+      <th>Peso (gr)</th>
+    </tr>
+    {% for lote in lotes %}
+    <tr>
+      <td>{{ lote.pk}}</td>
+      <td>{{ lote.cama_actividad}}</td>
+      <td>{{ lote.material.fecha_actividad }}</td>
+      <td>{{ lote.fecha_actividad}}</td>
+      <td>{{ lote.material.material}}</td>
+      <td>{{ lote.cantidad}}</td>
+     {% endfor %}
+     </tr>
+</table>
+
+
+{% endblock %}

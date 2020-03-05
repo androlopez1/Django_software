@@ -1,0 +1,15 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<style>
+.container-main {
+	background: url("{% static 'media/home.jpeg' %}");
+	background-repeat:no-repeat;
+	background-size:100%;
+}
+</style>
+
+{% endblock %}

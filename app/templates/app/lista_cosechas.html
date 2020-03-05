@@ -1,0 +1,65 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="button-wrapper">
+  <h2><a class="button fancy-button" href="{% url 'lista_actividades' %}">Volver</a></h2>
+  {% if user.is_superuser %}
+  <h2><a class="button fancy-button" href="{% url 'cosecha-add' %}">Crear Cosecha</a></h2> 
+  {% endif %}
+</div>
+<br></br>
+<h3>Cosechas</h3>
+<table class="tabla-contenido">
+    <tr>
+    	<th>Id</th>
+      <th>Cama</th>
+      <th>Material</th>
+    	<th>Fecha Siembra</th>
+      <th>Fecha Cosecha</th>  
+    	<th>Operario(s)</th>
+      <th>Acciones</th>
+  	</tr>
+    {% for cosecha in lista_cosechas %}
+    <tr>
+        <td>{{ cosecha.pk }}</td>
+        <td>{{ cosecha.cama_actividad}}</td>
+        <td>{{ cosecha.material.material}}</td>
+        <td>{{ cosecha.material.fecha_actividad}}</td>
+        <td>{{ cosecha.fecha_actividad}}</td>
+        <td>{% for operario in cosecha.operario.all %}
+              {{ operario }}
+            {% endfor %}
+        </td>
+        <td>
+          <a href="{% url 'cosecha_detail' cosecha.pk %}">Ver</a>
+          <a href="{% url 'cosecha-update' cosecha.pk %}">Editar</a>
+          {% if user.is_superuser %}
+          <a href="{% url 'cosecha-delete' cosecha.pk %}">Borrar</a>
+          {% endif %}
+        </td>
+     {% endfor %}
+     </tr>
+</table>
+{% if lista_cosechas.has_other_pages %}
+  <ul class="pagination">
+    {% if lista_cosechas.has_previous %}
+      <li><a href="?page={{ lista_cosechas.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in lista_cosechas.paginator.page_range %}
+      {% if lista_cosechas.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if lista_cosechas.has_next %}
+      <li><a href="?page={{ lista_cosechas.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock %}

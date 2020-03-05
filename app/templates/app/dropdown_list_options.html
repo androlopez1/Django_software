@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for siembra in siembras %}
+<option value="{{ siembra.pk }}">{{ siembra.material }}(siembra {{siembra.fecha_actividad }})</option>
+{% endfor %}

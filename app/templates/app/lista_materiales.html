@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+{% if user.is_superuser %}
+<h2><a class="button fancy-button" href="{% url 'material-add' %}">Crear Material</a></h2>
+{% endif %}
+<br></br>
+<h3>Materiales</h3>
+{% if lista_materiales %}
+    <table class="tabla-contenido">
+    	 <tr>
+    		<th>Nombre</th>
+    		<th>Variedad</th>
+    		<th>Casa</th>
+        <th>Germinación (%) </th>
+        <th>Semillas por gramo</th>
+        <th>Acciones</th>
+  		</tr>
+        {% for material in lista_materiales %}
+        <tr>
+          <td>{{ material.nombre_material}}</td>
+          <td>{{ material.variedad}}</td>
+          <td>{{ material.casa}}</td>
+          <td>{{ material.germinacion}}</td>
+          <td>{{ material.semillas_gramo}}</td>
+          <td>
+            <a href="{% url 'material_update' material.pk  %}">Editar</a>
+            {% if user.is_superuser %}
+            <a href="{% url 'material_delete' material.pk  %}">Borrar</a>
+            {% endif %}
+          </td>
+        {% endfor %}
+        </tr>
+    </table>
+{% else %}
+    <p>No hay datos disponibles</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+{% if user.is_superuser %}
+<h2><a class="button fancy-button" href="{% url 'insumo-add' %}">Crear Insumo</a></h2>
+{% endif %}
+<br></br>
+<h3>Insumos</h3>
+<table>
+{% if lista_insumos %}
+    <table class="tabla-contenido">
+    	 <tr>
+    		<th>Nombre</th>
+    		<th>Fabricante</th> 
+    		<th>Variedad</th>
+    		<th>Cantidad</th>
+        <th>Unidad</th>
+        <th>Dilución</th>
+        <th>Acciones</th>
+  		</tr>
+        {% for insumo in lista_insumos %}
+        <tr>
+          <td>{{ insumo.nombre_insumo}}</td>
+          <td>{{ insumo.fabricante}}</td>
+          <td>{{ insumo.variedad}}</td>
+          <td>{{ insumo.cantidad}}</td>
+          <td>{{ insumo.unidad}}</td>
+          <td>{{ insumo.dilucion}}</td>
+          <td>
+            <a href="{% url 'insumo_update' insumo.pk  %}">Editar</a>
+            {% if user.is_superuser %}
+            <a href="{% url 'insumo_delete' insumo.pk  %}">Borrar</a>
+            {% endif %}
+          </td>
+        {% endfor %}
+        </tr>
+    </table>
+{% else %}
+    <p>No hay datos disponibles</p>
+{% endif %}
+{% endblock %}

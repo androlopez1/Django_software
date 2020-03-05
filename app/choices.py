@@ -1,0 +1,47 @@
+CONTROL = 'Control'
+ABONO = 'Abono'
+FERTILIZANTE = 'Fertilizante'
+GRAMOS = 'g'
+KILOS = 'Kg'
+MILILITROS = 'ml'
+SIEMBRA = 'SIEMBRA'
+FERTILIZACION = 'FERTILIZACION'
+ASPERSION = 'ASPERSION'
+DESHIERBE = 'DESHIERBE'
+METROS = 'METROS'
+NOAPLICA='NO APLICA'
+MASCULINO='MASCULINO'
+FEMENINO='FEMENINO'
+PREPARO = 'PREPARO'
+LITROS = 'L'
+LIBRAS = 'lb'
+
+OPCIONES_INSUMO = [
+    (FERTILIZANTE, 'Fertilizante'),
+    (CONTROL, 'Control de plagas'),
+    (ABONO, 'Abono'),
+    ]
+
+OPCIONES_UNIDAD = [
+    (METROS, 'm'),
+    (GRAMOS, 'g'),
+    (KILOS,'Kg'),
+    (MILILITROS, 'ml'),
+    (LITROS, 'L'),
+    (LIBRAS, 'lb'),
+    (NOAPLICA, 'NO APLICA'),
+    ]
+
+OPCIONES_ACTIVIDAD = [
+    (ASPERSION, 'ASPERSION'),
+    (FERTILIZACION, 'FERTILIZACION'),
+    (DESHIERBE, 'DESHIERBE'),
+    (PREPARO, 'PREPARO'),
+    ] 
+
+OPCIONES_SEXO = [
+    (MASCULINO, 'MASCULINO'),
+    (FEMENINO, 'FEMENINO'),
+    ] 
+
+    

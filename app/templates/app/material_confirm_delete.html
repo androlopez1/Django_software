@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    <p>Esta seguro de eliminar:"{{ object }}"?</p>
+    <br></br>
+    <div class="button-wrapper">
+	    <h2><input class="button fancy-button" type="submit" value="Confirmar" id="input"></h2>
+	    <h2><a class="button fancy-button" id="cancel-button" href="{% url 'lista_materiales' %}">Cancelar</a></h2>
+	</div>
+</form>
+
+{% endblock %}

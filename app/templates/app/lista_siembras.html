@@ -1,0 +1,64 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<div class="button-wrapper">
+  <h2><a class="button fancy-button" href="{% url 'lista_actividades' %}">Volver</a></h2>
+  {% if user.is_superuser %}
+  <h2><a class="button fancy-button" href="{% url 'siembra-add' %}">Crear siembra</a></h2>
+  {% endif %} 
+</div>
+<br></br>
+<h3>Siembras</h3>
+<table class="tabla-contenido">
+    <tr>
+    	<th>Id</th>
+      <th>Cama</th>
+      <th>Material</th>
+    	<th>Fecha</th> 
+    	<th>Operario(s)</th>
+      <th>Acciones</th>
+  	</tr>
+    {% for siembra in lista_siembras %}
+    <tr>
+        <td>{{ siembra.pk }}</td>
+        <td>{{ siembra.cama_actividad}}</td>
+        <td>{{ siembra.material}}</td>
+        <td>{{ siembra.fecha_actividad}}</td>
+        <td>{% for operario in siembra.operario.all %}
+              {{ operario }}
+            {% endfor %}
+        </td>
+        <td>
+          <a href="{% url 'siembra_detail' siembra.pk %}">Ver</a>
+          <a href="{% url 'siembra-update' siembra.pk %}">Editar</a>
+          {% if user.is_superuser %}
+          <a href="{% url 'siembra_delete' siembra.pk %}">Borrar</a>
+          {% endif %}
+        </td>
+     {% endfor %}
+    </tr>
+</table>
+{% if lista_siembras.has_other_pages %}
+  <ul class="pagination">
+    {% if lista_siembras.has_previous %}
+      <li><a href="?page={{ lista_siembras.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in lista_siembras.paginator.page_range %}
+      {% if lista_siembras.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if lista_siembras.has_next %}
+      <li><a href="?page={{ lista_siembras.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock %}

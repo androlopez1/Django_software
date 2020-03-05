@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% block content %}
+{% if user.is_superuser %}
+<h2><a class="button fancy-button" id="crear-button" href="{% url 'cama-add' %}">Crear cama</a></h2>
+<br></br>
+{% endif %}
+<h3>Camas:</h3>
+{% if lista_camas %}
+  <table class="tabla-contenido">
+  	 <tr>
+  		<th>Módulo</th>
+  		<th>Bloque</th> 
+  		<th>Cama</th>
+      <th>Acciones</th>
+		</tr>
+      {% for cama  in lista_camas %}
+      <tr>
+        <td>{{ cama.bloque.modulo.id_modulo}}</td>
+        <td>{{ cama.bloque.id_bloque}}</td>
+        <td>{{ cama.id_cama }}</td>
+        <td>
+          <a href="{% url 'cama_detail' cama.bloque.modulo.id_modulo cama.bloque.id_bloque cama.id_cama  %}">Ver</a>
+          <a href="{% url 'cama_update' cama.pk  %}">Editar</a>
+          {% if user.is_superuser %}
+          <a href="{% url 'cama_delete' cama.pk  %}">Borrar</a>
+          {% endif %}
+        </td>
+      {% endfor %}
+      </tr>
+    </table>
+{% endif %}
+<br></br>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'media/favicon.ico' %}"/>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+    <meta charset="utf-8">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+    <title>{% block title %}Finca Tagua{% endblock %}</title>
+  </head>
+  <body>
+    <div class="app-header" id="app-header">
+      <a class="navbar-item" href="{% url 'home' %}">
+        <img src="{% static 'media/logo.png' %}" id="logo" alt="Image not found">
+      </a>
+    {% if user.is_authenticated %}
+    <div id="welcome"><p>Bienvenido, {{ user.username }}</p></div>
+    <a class="button fancy-button" id="logout-button" href="{% url 'logout' %}">Cerrar Sesión</a>
+    {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+    <div class="table-container" id="table-container">
+      <table>
+        <tr><td><a href="{% url 'lista_camas' %}">Camas</a></p></td><tr>
+        <tr><td><a href="{% url 'lista_actividades' %}">Actividades</a></td><tr>
+        <tr><td><a href="{% url 'lista_operarios' %}">Operarios</a></td><tr>
+        <tr><td><a href="{% url 'lista_insumos' %}">Insumos</a></td><tr>
+        <tr><td><a href="{% url 'lista_materiales' %}">Materiales</a></td><tr>
+        <tr><td><a href="{% url 'lista_lotes' %}">Lotes</a></td><tr>
+        {% if request.user.is_superuser %}
+        <tr><td><a href="{% url 'signup' %}">Crear usuario</a></td><tr>
+        {% endif %}
+      </table>
+    </div>
+    {% endif %} 
+    <div class="container-main">
+      {% block content %}
+      {% endblock %}
+    </div> 
+  </body>
+</html>

@@ -1,0 +1,71 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<h2><a class="button fancy-button" href="{% url 'lista_camas' %}">Volver</a></h2>
+<h3>{{cama}}</h3>
+<br></br>
+<h2>Siembras activas:</h2>
+<table>
+    <tr>
+    	<th>Siembras activas</th>
+    	<th>Fecha siembra</th> 
+    	<th>Semanas</th>
+  	</tr>
+    {% for siembra in siembras_activas_cama %}
+    <tr>
+        <td>{{ siembra.material }}</td>
+        <td>{{ siembra.fecha_actividad }}</td>
+        <td>{{ siembra.fecha_actividad|timesince }}</td>
+     {% endfor %}
+     </tr>
+</table>
+<br></br>
+<h2>Siembras realizadas:</h2>
+<table>
+    <tr>
+      <th>Siembras</th>
+      <th>Fecha</th>
+    </tr>
+    {% for siembra in siembras_cama %}
+    <tr>
+        <td>{{ siembra.material }}</td>
+        <td>{{ siembra.fecha_actividad }}</td>
+     {% endfor %}
+     </tr>
+</table>
+<br></br>
+<h2>Cosechas realizadas:</h2>
+<table>
+    <tr>
+      <th>Material</th>
+      <th>Fecha siembra</th> 
+      <th>Fecha cosecha</th> 
+    </tr>
+    {% for cosecha in cosechas_cama %}
+    <tr>
+        <td>{{ cosecha.material.material }}</td>
+        <td>{{ cosecha.fecha_actividad }}</td>
+        <td>{{ cosecha.fecha_actividad }}</td>
+     {% endfor %}
+     </tr>
+</table>
+<br></br>
+<h2>Actividades realizadas:</h2>
+<table>
+    <tr>
+    	<th>Tipo</th>
+      <th>Insumo</th>
+    	<th>Fecha</th> 
+    	<th>Operario</th>
+  	</tr>
+    {% for actividad in actividades_cama %}
+    <tr>
+        <td>{{ actividad.tipo}}</td>
+        <td>{{ actividad.insumo}}</td>
+        <td>{{ actividad.fecha_actividad}}</td>
+        <td>{{ actividad.operario}}</td>
+        <td><a href="{% url 'fertilizacion_detail' actividad.pk %}">Ver detalle</a></td>
+     {% endfor %}
+     </tr>
+</table>
+{% endblock %}
+

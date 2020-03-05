@@ -1,0 +1,12 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h3>Seleccione una actividad:</h3>
+<div id="wrapper-actividades">
+	<a class="button fancy-button" href="{% url 'siembra_filter' %}">Siembras</a>
+	<a class="button fancy-button" href="{% url 'lista_cosechas' %}">Cosechas</a>
+	<a class="button fancy-button" href="{% url 'lista_fertilizaciones' %}">Fertilizaciones/Aspersiones/Deshierbe</a>
+</div>
+
+{% endblock %}

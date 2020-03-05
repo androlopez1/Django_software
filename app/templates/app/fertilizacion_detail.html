@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h2><a class="button fancy-button" href="{% url 'lista_fertilizaciones' %}">Volver</a></h2>
+<br></br>
+<h1>Actividad id: {{ fertilizacion.pk }}</h1>
+<ul>
+	<li> Tipo: {{ fertilizacion.tipo}}</li>
+	<li> Fecha: {{ fertilizacion.fecha_actividad}}</li>
+	<li> Operario(s):
+		<ul>  
+			{% for operario in fertilizacion.operario.all %}
+			<li> {{ operario }}</li>
+			{% endfor %}
+		</ul>
+	</li>
+	<li> Cama: {{ fertilizacion.cama_actividad }}</li>
+	<li> Insumo: {{ fertilizacion.material.insumo }}</li>
+	<li> Cantidad: {{ fertilizacion.cantidad }}</li>
+	<li> Unidad: {{ fertilizacion.unidad }}</li>
+	<li> Observaciones: {{ fertilizacion.observaciones }}</li>
+</ul>
+
+{% endblock %}

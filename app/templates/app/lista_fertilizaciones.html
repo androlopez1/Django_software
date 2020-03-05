@@ -1,0 +1,66 @@
+ {% extends 'app/base.html' %}
+
+{% block content %}
+<div class="button-wrapper">
+  <h2><a class="button fancy-button" href="{% url 'lista_actividades' %}">Volver</a></h2>
+  {% if user.is_superuser %}
+  <h2><a class="button fancy-button" href="{% url 'fertilizacion-add' %}">Crear Actividad</a></h2> 
+  {% endif %}
+</div>
+<br></br>
+<h3>Actividades</h3>
+<table class="tabla-contenido">
+    <tr>
+    	<th>Tipo</th>
+      <th>Fecha</th>
+      <th>Operario(s)</th> 
+      <th>Cama</th>
+      <th>Insumo</th>
+    	<th>Cantidad</th>
+    	<th>Unidad</th>
+      <th>Acciones</th>
+  	</tr>
+    {% for fertilizacion in lista_fertilizaciones %}
+    <tr>
+        <td>{{ fertilizacion.tipo }}</td>
+        <td>{{ fertilizacion.fecha_actividad}}</td>
+        <td>{% for operario in fertilizacion.operario.all %}
+              {{ operario }}
+            {% endfor %}
+        </td>
+        <td>{{ fertilizacion.cama_actividad}}</td>
+        <td>{{ fertilizacion.insumo}}</td>
+        <td>{{ fertilizacion.cantidad}}</td>
+        <td>{{ fertilizacion.unidad}}</td>
+        <td>
+          <a href="{% url 'fertilizacion_detail' fertilizacion.pk %}">Ver</a>
+          <a href="{% url 'fertilizacion-update' fertilizacion.pk %}">Editar</a>
+          {% if user.is_superuser %}
+          <a href="{% url 'fertilizacion_delete' fertilizacion.pk %}">Borrar</a>
+          {% endif %}
+        </td>
+     {% endfor %}
+    </tr>
+</table>
+{% if lista_fertilizaciones.has_other_pages %}
+  <ul class="pagination">
+    {% if lista_fertilizaciones.has_previous %}
+      <li><a href="?page={{ lista_fertilizaciones.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in lista_fertilizaciones.paginator.page_range %}
+      {% if lista_fertilizaciones.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if lista_fertilizaciones.has_next %}
+      <li><a href="?page={{ lista_fertilizaciones.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock %}
